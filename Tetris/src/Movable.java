@@ -1,3 +1,5 @@
+import Consts.Direction;
+
 public interface Movable {
-    void move(int deltaX, int deltaY);
+    void move(Direction direction);
 }
