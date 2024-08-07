@@ -4,10 +4,13 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public abstract class Tetromino implements Drawable, Movable {
-    private Point originPosition; // Origin position of the Tetromino
-    private Color color; // Color of the Tetromino
-    private Dimension[] dimensions; // Dimensions of the Tetromino
-    private int rotation; // Rotation state of the Tetromino
+    protected Point originPosition; // Origin position of the Tetromino
+    protected Color color; // Color of the Tetromino
+    protected Dimension[] dimensions; // Dimensions of the Tetromino
+    protected int rotation; // Rotation state of the Tetromino
+    
+    // default constructor
+    public Tetromino() {}
     
     // Constructor
     public Tetromino(Point originPosition, Color color, Dimension[] dimensions, int rotation) {

@@ -12,7 +12,7 @@ public class Board extends JPanel implements KeyListener {
     static final int BLOCK_SIZE = 24;
     private Color[][] grid;
     private Game game;
-    private Point origin_position; ///???
+    public Point origin_position; ///???
 
     public Board(Game game) {
         this.game = game;

@@ -15,4 +15,8 @@ public class Consts {
     public enum Direction {
         UP, DOWN, LEFT, RIGHT
     }
+    
+    public static final int ROWS = 22;
+    public static final int COLS = 12;
+
 }
