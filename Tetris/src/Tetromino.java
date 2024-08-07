@@ -9,7 +9,7 @@ public abstract class Tetromino implements Drawable, Movable {
     private Dimension[] dimensions; // Dimensions of the Tetromino
     private int rotation; // Rotation state of the Tetromino
     
- // Constructor
+    // Constructor
     public Tetromino(Point originPosition, Color color, Dimension[] dimensions, int rotation) {
         this.originPosition = originPosition;
         this.color = color;
