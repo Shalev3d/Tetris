@@ -1,5 +1,4 @@
-import Consts.Direction;
 
 public interface Movable {
-    void move(Direction direction);
+    void move(Consts.Direction direction);
 }
