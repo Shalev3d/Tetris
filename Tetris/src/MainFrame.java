@@ -11,7 +11,8 @@ public class MainFrame extends JFrame {
 
     public MainFrame() {
         setTitle("Tetris Game");
-        setSize(800, 600);
+     // Set initial frame size
+        setSize(324, 400); // Small size for the menu
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         cardLayout = new CardLayout();
@@ -36,12 +37,18 @@ public class MainFrame extends JFrame {
     }
 
     public void showGamePanel(String player_name) {
+
+        setSize(800, 600);
         gamePanel = new GamePanel(this, player_name);
         mainPanel.add(gamePanel, "Game");
         cardLayout.show(mainPanel, "Game");
     }
-
+    
+    // Similar method for showing the scores panel
     public void showScoresPanel() {
+        // Switch to a larger frame size or keep the same size
+        setSize(800, 600); // Size for the scores
+        setLocationRelativeTo(null); // Re-center the frame
         cardLayout.show(mainPanel, "Scores");
     }
 
