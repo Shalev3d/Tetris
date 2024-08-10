@@ -12,7 +12,7 @@ public class SShape extends Tetromino{
 			{ new Point(0, 0), new Point(0, 1), new Point(1, 1), new Point(1, 2) }
 		};
 
-    public SShape(Point originPosition) {
-        super(originPosition, COLOR, DIMENSIONS, 0);
+    public SShape() {
+        super(new Point(0,0), COLOR, DIMENSIONS, 0);
     }
 }

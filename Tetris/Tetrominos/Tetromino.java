@@ -43,12 +43,14 @@ public abstract class Tetromino implements Drawable, Movable {
     
     // Checks if there is any collide with the edge or in any shape
     public boolean isCollide(int x, int y, Board board) {
-		System.out.println("x = "+x+" y= "+y);
+    	System.out.println("x = "+x+" y= "+y);
+    	System.out.println("board = "+board.getUIClassID());
     	for (Point block : blocks[rotation]) {
             // Check if the point is within the bounds of the dimension
             if (x >= originPosition.x && x <= originPosition.x + block.x &&
                 y >= originPosition.y && y <= originPosition.y + block.y) {
                 // Check if the point (x, y) collides with something on the board
+            	System.out.println("COLLIDE grid: " +board.grid.hashCode()+" "+board.grid[x][y] +" "+Color.BLACK);
                 if (board.grid[x][y] != Color.BLACK) {
                     return true; // Collision detected with something other than empty space
                 }
@@ -93,13 +95,14 @@ public abstract class Tetromino implements Drawable, Movable {
     // Draw the Tetromino on the board
     @Override
     public void draw(Graphics g) {
+        System.out.println("draw Tetromino, x= "+this.originPosition.x+ " y= "+originPosition.y+" " +this.getClass());
         g.setColor(color);
         for (Point block : blocks[rotation]) {
             int x = originPosition.x + block.x;
             int y = originPosition.y + block.y;
             g.fillRect(x * Consts.BLOCK_SIZE, y * Consts.BLOCK_SIZE, Consts.BLOCK_SIZE-1, Consts.BLOCK_SIZE-1);
         }
-        System.out.println("draw Tetromino");
+        System.out.println("draw Tetromino,DONE ");
     }
 
 	public void drop(Board board) {
@@ -122,6 +125,7 @@ public abstract class Tetromino implements Drawable, Movable {
 		for (Point block : blocks[rotation]) {
 			board.grid[originPosition.x + block.x][originPosition.y+block.y-1] = color;
 		}
+		System.out.println("fixToGrid()::NEW PIECE BECAUSE FINISHED TO FIX GRID");
 		board.clearRows();
 		board.newPiece();
 			

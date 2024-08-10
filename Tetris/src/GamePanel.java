@@ -8,7 +8,7 @@ import java.awt.Graphics;
 public class GamePanel extends JPanel {
     private static final long serialVersionUID = 1L;
 	private Game game;
-    private NextShapePanel nextShapePanel;
+    public NextShapePanel nextShapePanel;
 
     public GamePanel(MainFrame mainFrame, String player_name) {
         this.game = new Game(this, player_name);

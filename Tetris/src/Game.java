@@ -22,6 +22,7 @@ public class Game {
         this.tetrominoQueue = new LinkedList<>();
         initializeQueue();
         currentTetromino = tetrominoQueue.poll(); // Get the first Tetromino from the queue
+        currentTetromino.originPosition = this.board.origin_position;
         this.timer = new GameTimer(this, Consts.HARD_TIMER);
         timerThread = new Thread(timer);
         timerThread.start();
@@ -39,14 +40,14 @@ public class Game {
         int tetrominoType = random.nextInt(7); // Assume there are 7 types of Tetrominos
         System.out.println("RANDOMIZING TETROMINO");
         switch (tetrominoType) {
-            case 0: return new IShape(board.origin_position);
-            case 1: return new JShape(board.origin_position);
-            case 2: return new LShape(board.origin_position);
-            case 3: return new OShape(board.origin_position);
-            case 4: return new SShape(board.origin_position);
-            case 5: return new TShape(board.origin_position);
-            case 6: return new ZShape(board.origin_position);
-            default: return new IShape(board.origin_position); // Fallback to IShape
+            case 0: return new IShape();
+            case 1: return new JShape();
+            case 2: return new LShape();
+            case 3: return new OShape();
+            case 4: return new SShape();
+            case 5: return new TShape();
+            case 6: return new ZShape();
+            default: return new IShape(); // Fallback to IShape
         }
         
     }
@@ -56,6 +57,7 @@ public class Game {
         
         // Update the queue
         currentTetromino = tetrominoQueue.poll(); // Get the next Tetromino
+        currentTetromino.originPosition = this.board.origin_position;
         tetrominoQueue.add(randomizeTetromino()); // Add a new random Tetromino to the queue
         this.board.repaint();
         System.out.println("placeNewTetromino::GAME");

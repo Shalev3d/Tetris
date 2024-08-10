@@ -7,7 +7,27 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JPanel;
 
+
+
 public class Board extends JPanel implements KeyListener {
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLACK = "\u001B[30m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_WHITE = "\u001B[37m";
+	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
+	public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
+	public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
+	public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
+	public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
+	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
+	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
+
     private static final long serialVersionUID = 1L;
 	public Color[][] grid;
 	private Game game;
@@ -21,6 +41,8 @@ public class Board extends JPanel implements KeyListener {
         setFocusable(true);
         initializeGrid();
         addKeyListener(this);
+    	System.out.println(ANSI_RED+"NEW board = "+getUIClassID()+ANSI_RESET);
+
     }
 
     private void initializeGrid() {
@@ -29,6 +51,7 @@ public class Board extends JPanel implements KeyListener {
 				if (row == 0 || row == Consts.ROWS-1 || col == Consts.COLS-1 ||col ==0) {
 					this.grid[row][col] = Color.GRAY;
 				} else {
+					System.out.println("COLORING IN BLACK "+row+" "+col+" "+this.grid.hashCode());
 					this.grid[row][col] = Color.BLACK;
 				}
 			}
@@ -65,6 +88,7 @@ public class Board extends JPanel implements KeyListener {
     public void setBlock(int row, int col, Color color) {
         if (row >= 0 && row < Consts.ROWS && col >= 0 && col < Consts.COLS) {
             grid[row][col] = color;
+            System.out.println("setBlock:: COLORING BLOCK");
             repaint();
         }
 
@@ -134,15 +158,19 @@ public class Board extends JPanel implements KeyListener {
         switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
             game.getCurrentTetromino().move(Consts.Direction.LEFT, game.getBoard());
+            System.out.println("PRESSED LEFT");
             break;
         case KeyEvent.VK_RIGHT:
             game.getCurrentTetromino().move(Consts.Direction.RIGHT, game.getBoard());
+            System.out.println("PRESSED RIGHT");
             break;
         case KeyEvent.VK_DOWN:
             game.getCurrentTetromino().move(Consts.Direction.DOWN, game.getBoard());
+            System.out.println("PRESSED DOWN");
             break;
         case KeyEvent.VK_UP:
             game.getCurrentTetromino().rotate(game.getBoard());
+            System.out.println("PRESSED UP");
             break;
         case KeyEvent.VK_SPACE:
             game.getCurrentTetromino().drop(game.getBoard()); // Drop instantly to the bottom

@@ -12,7 +12,7 @@ public class TShape extends Tetromino{
 			{ new Point(1, 0), new Point(1, 1), new Point(2, 1), new Point(1, 2) }
 		};
 
-    public TShape(Point originPosition) {
-        super(originPosition, COLOR, DIMENSIONS, 0);
+    public TShape() {
+        super(new Point(0,0), COLOR, DIMENSIONS, 0);
     }
 }

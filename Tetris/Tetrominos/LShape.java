@@ -12,7 +12,7 @@ public class LShape extends Tetromino{
 			{ new Point(1, 0), new Point(1, 1), new Point(1, 2), new Point(2, 0) }
 		};
 
-    public LShape(Point originPosition) {
-        super(originPosition, COLOR, DIMENSIONS, 0);
+    public LShape() {
+        super(new Point(0,0), COLOR, DIMENSIONS, 0);
     }	
 }
