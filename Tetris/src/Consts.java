@@ -18,5 +18,8 @@ public class Consts {
     
     public static final int ROWS = 22;
     public static final int COLS = 12;
+    public static final int BLOCK_SIZE = 24;
+    
+    public static final int HARD_TIMER = 700;
 
 }

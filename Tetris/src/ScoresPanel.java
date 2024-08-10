@@ -5,7 +5,9 @@ import java.awt.event.ActionListener;
 import java.awt.Graphics;
 
 public class ScoresPanel extends JPanel {
-    public ScoresPanel(MainFrame mainFrame) {
+    private static final long serialVersionUID = 1L;
+
+	public ScoresPanel(MainFrame mainFrame) {
         JButton backButton = new JButton("Back to Menu");
         
         backButton.addActionListener(new ActionListener() {
