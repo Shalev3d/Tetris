@@ -84,7 +84,6 @@ public class Game {
 
     public void addScore(int points) {
         score.addPoints(points);
-        dbHandler.saveScore(playerName, score.getScore());
     }
 
     public GamePanel getGamePanel() {
@@ -93,10 +92,11 @@ public class Game {
     
     public void gameOver() {
         SwingUtilities.invokeLater(() -> {
+            dbHandler.saveScore(playerName, score.getScore());
             GameOverDialog dialog = new GameOverDialog(
                 gamePanel.parent, // Pass the parent JFrame
                 score.getScore(),           // Pass the current score
-                () -> gamePanel.parent.showScoresPanel() // Define action to navigate to ScoresPanel
+                () -> gamePanel.parent.showScoresPanel(this.getScore().getScore()) // Define action to navigate to ScoresPanel
             );
             this.timer.stop();
             dialog.setVisible(true);

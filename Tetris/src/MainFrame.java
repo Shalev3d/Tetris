@@ -21,11 +21,9 @@ public class MainFrame extends JFrame {
         mainPanel = new JPanel(cardLayout);
 
         menuPanel = new MenuPanel(this);
-        scoresPanel = new ScoresPanel(this);
 
         // Add all panels to the main panel with CardLayout
         mainPanel.add(menuPanel, "Menu");
-        mainPanel.add(scoresPanel, "Scores");
 
         add(mainPanel);
 
@@ -52,9 +50,13 @@ public class MainFrame extends JFrame {
         cardLayout.show(mainPanel, "Game");
     }
 
-    public void showScoresPanel() {
+    public void showScoresPanel(int playerScore) {
+        scoresPanel = new ScoresPanel(this, playerScore);
+        mainPanel.add(scoresPanel, "Scores");
+        
         setSize(800, 550);
         setLocationRelativeTo(null);
+        
         cardLayout.show(mainPanel, "Scores");
     }
 

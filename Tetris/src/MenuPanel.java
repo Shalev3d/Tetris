@@ -87,7 +87,7 @@ public class MenuPanel extends JPanel {
         highScoresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                mainFrame.showScoresPanel();
+                mainFrame.showScoresPanel(0);
             }
         });
     }
