@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(gamePanel, "Game");
 
         // Switch to the game panel and adjust frame size
-        setSize(800, 550);
+        setSize(800, 580);
         setLocationRelativeTo(null);
         cardLayout.show(mainPanel, "Game");
     }

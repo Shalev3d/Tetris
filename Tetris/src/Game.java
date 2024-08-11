@@ -22,7 +22,7 @@ public class Game {
         this.tetrominoQueue = new LinkedList<>();
         initializeQueue();
         currentTetromino = tetrominoQueue.poll(); // Get the first Tetromino from the queue
-        currentTetromino.originPosition = this.board.origin_position;
+        currentTetromino.originPosition.setLocation(Consts.ORIG_X, Consts.ORIG_Y);
         this.timer = new GameTimer(this, Consts.HARD_TIMER);
         timerThread = new Thread(timer);
         timerThread.start();
@@ -57,10 +57,9 @@ public class Game {
         
         // Update the queue
         currentTetromino = tetrominoQueue.poll(); // Get the next Tetromino
-        currentTetromino.originPosition = this.board.origin_position;
+        currentTetromino.originPosition.setLocation(Consts.ORIG_X, Consts.ORIG_Y);
         tetrominoQueue.add(randomizeTetromino()); // Add a new random Tetromino to the queue
         this.board.repaint();
-        System.out.println("placeNewTetromino::GAME");
     }
     
     // Method to return the current active Tetromino

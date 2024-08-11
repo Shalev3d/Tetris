@@ -34,25 +34,23 @@ public class Board extends JPanel implements KeyListener {
     public Point origin_position = new Point(Consts.COLS/2-1, 1); 
 
     public Board(Game game) {
-        this.grid = new Color[Consts.ROWS][Consts.COLS];
+        this.grid = new Color[Consts.COLS][Consts.ROWS];
         this.game = game;
         setPreferredSize(new Dimension(Consts.COLS * Consts.BLOCK_SIZE, Consts.ROWS * Consts.BLOCK_SIZE));
         setBackground(Color.BLACK);
         setFocusable(true);
         initializeGrid();
         addKeyListener(this);
-    	System.out.println(ANSI_RED+"NEW board = "+getUIClassID()+ANSI_RESET);
 
     }
 
     private void initializeGrid() {
-    	for (int row = 0; row < Consts.ROWS; row++) {
-			for (int col = 0; col < Consts.COLS; col++) {
-				if (row == 0 || row == Consts.ROWS-1 || col == Consts.COLS-1 ||col ==0) {
-					this.grid[row][col] = Color.GRAY;
+    	for (int col = 0; col < Consts.COLS; col++) {
+			for (int row = 0; row < Consts.ROWS-1; row++) {
+				if (row == Consts.ROWS-2 || col == Consts.COLS-1 ||col ==0) {
+					this.grid[col][row] = Color.GRAY;
 				} else {
-					System.out.println("COLORING IN BLACK "+row+" "+col+" "+this.grid.hashCode());
-					this.grid[row][col] = Color.BLACK;
+					this.grid[col][row] = Color.BLACK;
 				}
 			}
 		}
@@ -63,15 +61,15 @@ public class Board extends JPanel implements KeyListener {
     @Override
     protected void paintComponent(Graphics g) {
     	super.paintComponent(g);
-    	g.fillRect(0, 0, Consts.ROWS*Consts.BLOCK_SIZE, Consts.COLS*Consts.BLOCK_SIZE);
+    	g.fillRect(0, 0, Consts.COLS*Consts.BLOCK_SIZE, (Consts.ROWS-1)*Consts.BLOCK_SIZE);
         drawGrid(g);
         System.out.println("painting board");
     }
 
     private void drawGrid(Graphics g) {
-        for (int row = 0; row < Consts.ROWS; row++) {
-            for (int col = 0; col < Consts.COLS; col++) {
-                g.setColor(grid[row][col]);
+        for (int col = 0; col < Consts.COLS; col++) {
+            for (int row = 0; row < Consts.ROWS-1; row++) {
+                g.setColor(grid[col][row]);
                 g.fillRect(col * Consts.BLOCK_SIZE, row * Consts.BLOCK_SIZE, Consts.BLOCK_SIZE-1, Consts.BLOCK_SIZE-1);
             }
         }
@@ -80,19 +78,14 @@ public class Board extends JPanel implements KeyListener {
         g.drawString("Score: " + game.getScore().getScore(), 10, 20);
 
         this.game.getCurrentTetromino().draw(g);
-
-        System.out.println("BOARD::drawGrid");
     }
 
 
     public void setBlock(int row, int col, Color color) {
         if (row >= 0 && row < Consts.ROWS && col >= 0 && col < Consts.COLS) {
             grid[row][col] = color;
-            System.out.println("setBlock:: COLORING BLOCK");
             repaint();
         }
-
-        System.out.println("setBlock");
     }
 
     public Color getBlock(int row, int col) {
@@ -105,7 +98,7 @@ public class Board extends JPanel implements KeyListener {
 	public void deleteRow(int row) {
 		for (int i = row-1; i>0; i--) {
 			for (int j = 1;j<Consts.COLS-1;j++) {
-				grid[i][j+1] = grid[i][j];
+				grid[j][i+1] = grid[j][i];
 			}
 		}
 		
@@ -115,10 +108,10 @@ public class Board extends JPanel implements KeyListener {
 		boolean gap;
 		int numClears = 0;
 		
-		for (int row = Consts.ROWS-1; row > 0; row--) {
+		for (int row = Consts.ROWS-3; row > 0; row--) {
 			gap = false;
 			for (int col = 1; col < Consts.COLS-1; col++) {
-				if (grid[row][col] == Color.BLACK) {
+				if (grid[col][row] == Color.BLACK) {
 					gap = true;
 					break;
 				}

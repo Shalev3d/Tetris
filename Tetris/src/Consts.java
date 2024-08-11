@@ -16,10 +16,12 @@ public class Consts {
         UP, DOWN, LEFT, RIGHT
     }
     
-    public static final int ROWS = 22;
+    public static final int ROWS = 24;
     public static final int COLS = 12;
     public static final int BLOCK_SIZE = 24;
-    
-    public static final int HARD_TIMER = 700;
+
+    public static final int HARD_TIMER = 50;
+    public static final int ORIG_X = COLS/2-1;
+    public static final int ORIG_Y = 0;
 
 }
