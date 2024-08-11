@@ -29,10 +29,6 @@ public class Consts {
     public static final int HARD_TIMER = 200;
     public static final int EXTREME_TIMER = 100;
 
-<<<<<<< HEAD
-    public static final int HARD_TIMER = 100;
-=======
->>>>>>> time_red
     public static final int ORIG_X = (COLS-1)/2;
     public static final int ORIG_Y = 0;
 }

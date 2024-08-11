@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class DBHandler {
@@ -89,6 +91,16 @@ public class DBHandler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
+        // Sort the list by score in descending order
+        Collections.sort(scoresList, new Comparator<String[]>() {
+            @Override
+            public int compare(String[] o1, String[] o2) {
+                int score1 = Integer.parseInt(o1[1]);
+                int score2 = Integer.parseInt(o2[1]);
+                return Integer.compare(score2, score1); // Sort descending
+            }
+        });
         return scoresList;
     }
     
