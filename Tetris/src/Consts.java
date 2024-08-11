@@ -21,7 +21,7 @@ public class Consts {
     public static final int BLOCK_SIZE = 24;
 
     public static final int HARD_TIMER = 50;
-    public static final int ORIG_X = COLS/2-1;
+    public static final int ORIG_X = (COLS-1)/2;
     public static final int ORIG_Y = 0;
 
 }

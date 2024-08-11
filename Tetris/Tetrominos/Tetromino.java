@@ -45,12 +45,14 @@ public abstract class Tetromino implements Drawable, Movable {
     public boolean isCollide(int newX, int newY, Board board) {
     	for (Point block : blocks[rotation]) {
             // Check if the point is within the bounds of the dimension
-            if (newX >= Consts.COLS-1 || newX <= 1 ||
-                newY >= Consts.ROWS || newY<=0) {
+            if (block.x + newX >= Consts.COLS-1 || block.x + newX <= 0 ||
+        		block.y + newY >= Consts.ROWS || block.y + newY <=0) {
+            	System.out.println("MORGEN COLLIFES  "+ this.getClass());
                 return true;
             }
             // Check if the point (x, y) collides with something on the board
             if (board.grid[block.x + newX][block.y + newY] != Color.BLACK) {
+            	System.out.println("COLLISION COLLIFES  "+ this.getClass());
                 return true; // Collision detected with something other than empty space
             }
         }
@@ -58,14 +60,16 @@ public abstract class Tetromino implements Drawable, Movable {
     }
     
     
-    // Rotate the shape by 90 degrees clockwise
+    // Rotate the shape by 90 degrees clockwise, if collides, stay in the same rotation
     public void rotate(Board board) {
     	int newRotation = (rotation + 1) % 4;
         if (newRotation <0) {
         	newRotation = 3;
         }
-        if (!isCollide(this.originPosition.x, this.originPosition.y, board))
-        rotation = newRotation; // Update rotation state
+        int prevRotation = rotation;
+        rotation = newRotation;
+        if (isCollide(this.originPosition.x, this.originPosition.y, board))
+        	rotation = prevRotation; // Update rotation state
         board.repaint();
     }
     
@@ -77,13 +81,19 @@ public abstract class Tetromino implements Drawable, Movable {
                 rotate(board); // Rotate the shape
                 break;
             case DOWN: 
-                originPosition.y += 1; // Move down by 1 unit
+                if (!isCollide(this.originPosition.x, this.originPosition.y+1, board)) {
+                	originPosition.y += 1; // Move down by 1 unit
+                }
                 break;
             case LEFT:
-                originPosition.x -= 1; // Move left by 1 unit
+                if (!isCollide(this.originPosition.x - 1, this.originPosition.y, board)) {
+                	originPosition.x -= 1; // Move down by 1 unit
+                }
                 break;
             case RIGHT:
-                originPosition.x += 1; // Move right by 1 unit
+                if (!isCollide(this.originPosition.x + 1, this.originPosition.y, board)) {
+                	originPosition.x += 1; // Move down by 1 unit
+                }
                 break;
         }
         board.repaint();
@@ -106,14 +116,18 @@ public abstract class Tetromino implements Drawable, Movable {
 		if (!isCollide(this.originPosition.x, this.originPosition.y+1, board)) {
 			originPosition.y += 1; // Move down by 1 unit
 		}
+		else if (this.originPosition.y+1 ==1){
+			board.game.gameOver();
+		}
 		else {
 			fixToGrid(board);
+			
 		}
 		board.invalidate();
 		board.validate();
 		board.repaint();
 		
-		System.out.println("Tetromino:: drop() shape="+this.getClass());
+//		System.out.println("Tetromino:: drop() shape="+this.getClass());
 		
 	}
 
@@ -121,7 +135,6 @@ public abstract class Tetromino implements Drawable, Movable {
 		for (Point block : blocks[rotation]) {
 			board.grid[originPosition.x + block.x][originPosition.y+block.y] = color;
 		}
-		System.out.println("fixToGrid()::NEW PIECE BECAUSE FINISHED TO FIX GRID");
 		board.clearRows();
 		board.newPiece();
 			

@@ -2,6 +2,8 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
+import javax.swing.SwingUtilities;
+
 public class Game {
     private Board board;
     private Queue<Tetromino> tetrominoQueue;
@@ -87,5 +89,17 @@ public class Game {
 
     public GamePanel getGamePanel() {
         return gamePanel;
+    }
+    
+    public void gameOver() {
+        SwingUtilities.invokeLater(() -> {
+            GameOverDialog dialog = new GameOverDialog(
+                gamePanel.parent, // Pass the parent JFrame
+                score.getScore(),           // Pass the current score
+                () -> gamePanel.parent.showScoresPanel() // Define action to navigate to ScoresPanel
+            );
+            this.timer.stop();
+            dialog.setVisible(true);
+        });
     }
 }

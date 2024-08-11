@@ -1,21 +1,23 @@
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import java.awt.BorderLayout;
 import java.awt.Graphics;
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel  {
     private static final long serialVersionUID = 1L;
 	private Game game;
     public NextShapePanel nextShapePanel;
+    MainFrame parent;
 
     public GamePanel(MainFrame mainFrame, String player_name) {
+    	this.parent = mainFrame;
         this.game = new Game(this, player_name);
         this.nextShapePanel = new NextShapePanel();
         setLayout(new BorderLayout());
         
-
 
         // Add the board panel to the right
         add(this.game.getBoard(), BorderLayout.WEST);
@@ -27,6 +29,10 @@ public class GamePanel extends JPanel {
         rightPanel.add(nextShapeLabel, BorderLayout.NORTH);
         rightPanel.add(nextShapePanel, BorderLayout.CENTER);
         add(rightPanel, BorderLayout.EAST);
+        
+        SwingUtilities.invokeLater(()-> {
+        	this.game.getBoard().requestFocusInWindow();
+        });
     }
 
     @Override

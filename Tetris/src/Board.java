@@ -30,7 +30,7 @@ public class Board extends JPanel implements KeyListener {
 
     private static final long serialVersionUID = 1L;
 	public Color[][] grid;
-	private Game game;
+	public Game game;
     public Point origin_position = new Point(Consts.COLS/2-1, 1); 
 
     public Board(Game game) {
@@ -38,6 +38,7 @@ public class Board extends JPanel implements KeyListener {
         this.game = game;
         setPreferredSize(new Dimension(Consts.COLS * Consts.BLOCK_SIZE, Consts.ROWS * Consts.BLOCK_SIZE));
         setBackground(Color.BLACK);
+        
         setFocusable(true);
         initializeGrid();
         addKeyListener(this);
@@ -63,7 +64,6 @@ public class Board extends JPanel implements KeyListener {
     	super.paintComponent(g);
     	g.fillRect(0, 0, Consts.COLS*Consts.BLOCK_SIZE, (Consts.ROWS-1)*Consts.BLOCK_SIZE);
         drawGrid(g);
-        System.out.println("painting board");
     }
 
     private void drawGrid(Graphics g) {
@@ -148,22 +148,19 @@ public class Board extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+
         switch (e.getKeyCode()) {
         case KeyEvent.VK_LEFT:
             game.getCurrentTetromino().move(Consts.Direction.LEFT, game.getBoard());
-            System.out.println("PRESSED LEFT");
             break;
         case KeyEvent.VK_RIGHT:
             game.getCurrentTetromino().move(Consts.Direction.RIGHT, game.getBoard());
-            System.out.println("PRESSED RIGHT");
             break;
         case KeyEvent.VK_DOWN:
             game.getCurrentTetromino().move(Consts.Direction.DOWN, game.getBoard());
-            System.out.println("PRESSED DOWN");
             break;
         case KeyEvent.VK_UP:
             game.getCurrentTetromino().rotate(game.getBoard());
-            System.out.println("PRESSED UP");
             break;
         case KeyEvent.VK_SPACE:
             game.getCurrentTetromino().drop(game.getBoard()); // Drop instantly to the bottom

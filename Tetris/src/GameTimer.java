@@ -15,12 +15,12 @@ public class GameTimer implements Runnable {
     public void run() {
         while (running) {
             try {
-                Thread.sleep(delay); // Sleep for the specified delay
+                
                 game.getCurrentTetromino().drop(this.game.getBoard()); // Call the drop method to move Tetromino down
                 
-                System.out.println("THREAD is running");
                 // Update the UI on the Event Dispatch Thread
                 SwingUtilities.invokeLater(() -> game.getGamePanel().repaint());
+                Thread.sleep(delay); // Sleep for the specified delay
             } catch (InterruptedException e) {
                 // Handle interruption (e.g., thread was interrupted)
                 Thread.currentThread().interrupt();
