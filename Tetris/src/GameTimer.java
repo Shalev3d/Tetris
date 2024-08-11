@@ -10,7 +10,11 @@ public class GameTimer implements Runnable {
         this.delay = delay;
         this.running = true;
     }
-
+    public void setDelay (int delay)
+    {
+    	this.delay = delay;
+    }
+    
     @Override
     public void run() {
         while (running) {

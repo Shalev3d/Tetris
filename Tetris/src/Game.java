@@ -25,7 +25,7 @@ public class Game {
         initializeQueue();
         currentTetromino = tetrominoQueue.poll(); // Get the first Tetromino from the queue
         currentTetromino.originPosition.setLocation(Consts.ORIG_X, Consts.ORIG_Y);
-        this.timer = new GameTimer(this, Consts.HARD_TIMER);
+        this.timer= new GameTimer(this, Consts.EASY_TIMER);
         timerThread = new Thread(timer);
         timerThread.start();
         System.out.println("GAME():: started");
@@ -84,7 +84,7 @@ public class Game {
 
     public void addScore(int points) {
         score.addPoints(points);
-        dbHandler.saveScore(playerName, score.getScore());
+        checkTime();
     }
 
     public GamePanel getGamePanel() {
@@ -101,5 +101,41 @@ public class Game {
             this.timer.stop();
             dialog.setVisible(true);
         });
+    }
+    
+    private void checkTime() {
+        // Determine the level based on the score
+        int level = getLevelForScore(this.score.getScore());
+
+        switch (level) {
+            case 0:
+                timer.setDelay(Consts.EASY_TIMER);
+                break;
+            case 1:
+                timer.setDelay(Consts.MEDIUM_TIMER);
+                break;
+            case 2:
+                timer.setDelay(Consts.HARD_TIMER);
+                break;
+            case 3:
+                timer.setDelay(Consts.EXTREME_TIMER);
+                break;
+            default:
+                // Keep the hardest timer if score is above the highest threshold
+                timer.setDelay(Consts.EXTREME_TIMER);
+                break;
+        }
+    }
+        
+    private int getLevelForScore(int score) {
+        // Define the thresholds
+        int[] thresholds = {500, 1500, 4500};
+        // Check the level based on the score and thresholds
+        for (int i = 0; i < thresholds.length; i++) {
+            if (score < thresholds[i]) {
+                return i; // Return the level for the current score
+            }
+        }
+        return thresholds.length; // Return the highest level if score exceeds all thresholds
     }
 }
