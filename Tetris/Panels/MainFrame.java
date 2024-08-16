@@ -60,10 +60,5 @@ public class MainFrame extends JFrame {
         
         cardLayout.show(mainPanel, "Scores");
     }
-
-    public static void main(String[] args) {
-        MainFrame frame = new MainFrame();
-        frame.setVisible(true);
-    }
     
 }
