@@ -1,5 +1,6 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
 import java.awt.CardLayout;
 
 public class MainFrame extends JFrame {
@@ -45,7 +46,7 @@ public class MainFrame extends JFrame {
         mainPanel.add(gamePanel, "Game");
 
         // Switch to the game panel and adjust frame size
-        setSize(800, 580);
+        setSize(700, 580);
         setLocationRelativeTo(null);
         cardLayout.show(mainPanel, "Game");
     }
@@ -54,7 +55,7 @@ public class MainFrame extends JFrame {
         scoresPanel = new ScoresPanel(this, playerScore);
         mainPanel.add(scoresPanel, "Scores");
         
-        setSize(800, 550);
+        setSize(700, 580);
         setLocationRelativeTo(null);
         
         cardLayout.show(mainPanel, "Scores");

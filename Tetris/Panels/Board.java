@@ -10,30 +10,17 @@ import javax.swing.JPanel;
 
 
 public class Board extends JPanel implements KeyListener {
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_BLACK = "\u001B[30m";
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_GREEN = "\u001B[32m";
-	public static final String ANSI_YELLOW = "\u001B[33m";
-	public static final String ANSI_BLUE = "\u001B[34m";
-	public static final String ANSI_PURPLE = "\u001B[35m";
-	public static final String ANSI_CYAN = "\u001B[36m";
-	public static final String ANSI_WHITE = "\u001B[37m";
-	public static final String ANSI_BLACK_BACKGROUND = "\u001B[40m";
-	public static final String ANSI_RED_BACKGROUND = "\u001B[41m";
-	public static final String ANSI_GREEN_BACKGROUND = "\u001B[42m";
-	public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
-	public static final String ANSI_BLUE_BACKGROUND = "\u001B[44m";
-	public static final String ANSI_PURPLE_BACKGROUND = "\u001B[45m";
-	public static final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
-	public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
-
     private static final long serialVersionUID = 1L;
+    private Logger logger;
+    
 	public Color[][] grid;
 	public Game game;
     public Point origin_position = new Point(Consts.COLS/2-1, 1); 
-
+    
     public Board(Game game) {
+        this.logger = new Logger(Consts.LOG_LEVEL);
+        
+        this.logger.info("Initiate Board");
         this.grid = new Color[Consts.COLS][Consts.ROWS];
         this.game = game;
         setPreferredSize(new Dimension(Consts.COLS * Consts.BLOCK_SIZE, Consts.ROWS * Consts.BLOCK_SIZE));
@@ -55,7 +42,7 @@ public class Board extends JPanel implements KeyListener {
 				}
 			}
 		}
-    	System.out.println("initializeGrid()");
+    	logger.info("initializeGrid:: grid initiated in board");
     }
 
 
@@ -143,6 +130,7 @@ public class Board extends JPanel implements KeyListener {
 		this.game.placeNewTetromino();
 		
 	}
+	
     @Override
     public void keyTyped(KeyEvent e) {}
 
@@ -161,9 +149,6 @@ public class Board extends JPanel implements KeyListener {
             break;
         case KeyEvent.VK_UP:
             game.getCurrentTetromino().rotate(game.getBoard());
-            break;
-        case KeyEvent.VK_SPACE:
-            game.getCurrentTetromino().drop(game.getBoard()); // Drop instantly to the bottom
             break;
     }
     repaint(); // Repaint the panel to reflect the movement

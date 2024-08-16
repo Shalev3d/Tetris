@@ -11,26 +11,29 @@ import java.util.Comparator;
 import java.util.List;
 
 public class DBHandler {
-
+	private Logger logger;
+	
     // Constructor: Create the CSV file if it does not exist
     public DBHandler() {
+    	this.logger = new Logger(Consts.LOG_LEVEL);
+    	
         File file = new File(Consts.FILE_PATH);
         try {
             // Create a new file if it does not exist
             if (!file.exists()) {
-                System.out.println("File does not exist, creating a new file...");
+                logger.debug("File does not exist, creating a new file...");
                 if (file.createNewFile()) {
-                    System.out.println("New file created: " + Consts.FILE_PATH);
+                    logger.debug("New file created: " + Consts.FILE_PATH);
                     // Write the header if the file is newly created
                     try (FileWriter fileWriter = new FileWriter(file, true); 
                          PrintWriter printWriter = new PrintWriter(fileWriter)) {
                         printWriter.println("playerName,score,date");
                     }
                 } else {
-                    System.out.println("Failed to create new file.");
+                    logger.error("Failed to create new file.");
                 }
             } else {
-                System.out.println("File already exists.");
+                logger.debug("File already exists.");
             }
         } catch (IOException e) {
             System.err.println("Error creating or accessing file: " + e.getMessage());
@@ -40,13 +43,17 @@ public class DBHandler {
     // Save a new score to the CSV file
     public void saveScore(String playerName, int score) {
         String formattedDate = LocalDateTime.now().format(Consts.FORMATTER);
-
-        try (FileWriter fileWriter = new FileWriter(Consts.FILE_PATH, true); // Append mode
-                PrintWriter printWriter = new PrintWriter(fileWriter)) {
-            printWriter.printf("%s,%d,%s%n", playerName, score, formattedDate);
-            System.out.println("Score saved: " + playerName + ", " + score + ", " + formattedDate);
-        } catch (IOException e) {
-            System.err.println("Error saving score: " + e.getMessage());
+        if (score >0) {
+	        try (FileWriter fileWriter = new FileWriter(Consts.FILE_PATH, true); // Append mode
+	                PrintWriter printWriter = new PrintWriter(fileWriter)) {
+	            printWriter.printf("%s,%d,%s%n", playerName, score, formattedDate);
+	            logger.info("Score saved: " + playerName + ", " + score + ", " + formattedDate);
+	        } catch (IOException e) {
+	            System.err.println("Error saving score: " + e.getMessage());
+	        }
+        }
+        else {
+        	logger.info("Score is 0, did not save it");
         }
     }
 

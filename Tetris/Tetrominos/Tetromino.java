@@ -46,13 +46,11 @@ public abstract class Tetromino implements Drawable, Movable {
     	for (Point block : blocks[rotation]) {
             // Check if the point is within the bounds of the dimension
             if (block.x + newX >= Consts.COLS-1 || block.x + newX <= 0 ||
-        		block.y + newY >= Consts.ROWS || block.y + newY <=0) {
-            	System.out.println("MORGEN COLLIFES  "+ this.getClass());
+        		block.y + newY >= Consts.ROWS) {
                 return true;
             }
             // Check if the point (x, y) collides with something on the board
             if (board.grid[block.x + newX][block.y + newY] != Color.BLACK) {
-            	System.out.println("COLLISION COLLIFES  "+ this.getClass());
                 return true; // Collision detected with something other than empty space
             }
         }

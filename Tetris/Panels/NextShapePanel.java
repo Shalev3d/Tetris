@@ -1,3 +1,4 @@
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -13,7 +14,7 @@ public class NextShapePanel extends JPanel {
     public Point origin_position = new Point(0,0); 
 
     public NextShapePanel() {
-        setPreferredSize(new Dimension(100, 100)); // Set size for next shape box
+        setPreferredSize(new Dimension(75, 75)); // Set size for next shape box
         setBackground(Color.BLACK);
         setBorder(BorderFactory.createLineBorder(Color.WHITE));
     }

@@ -4,7 +4,9 @@ import java.util.Random;
 
 import javax.swing.SwingUtilities;
 
+
 public class Game {
+	private Logger logger;
     private Board board;
     private Queue<Tetromino> tetrominoQueue;
     private Tetromino currentTetromino; // The Tetromino currently being controlled
@@ -22,13 +24,14 @@ public class Game {
         this.dbHandler = new DBHandler();
         this.board = new Board(this);
         this.tetrominoQueue = new LinkedList<>();
+        this.logger = new Logger(Consts.LOG_LEVEL);
         initializeQueue();
         currentTetromino = tetrominoQueue.poll(); // Get the first Tetromino from the queue
         currentTetromino.originPosition.setLocation(Consts.ORIG_X, Consts.ORIG_Y);
         this.timer= new GameTimer(this, Consts.EASY_TIMER);
         timerThread = new Thread(timer);
         timerThread.start();
-        System.out.println("GAME():: started");
+        logger.info("GAME():: started");
     }
     
 	private void initializeQueue() {
@@ -40,7 +43,6 @@ public class Game {
     private Tetromino randomizeTetromino() {
         Random random = new Random();
         int tetrominoType = random.nextInt(7); // Assume there are 7 types of Tetrominos
-        System.out.println("RANDOMIZING TETROMINO");
         switch (tetrominoType) {
             case 0: return new IShape();
             case 1: return new JShape();

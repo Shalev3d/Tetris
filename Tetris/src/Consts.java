@@ -1,8 +1,20 @@
 import java.awt.Color;
 import java.time.format.DateTimeFormatter;
 
+
 public class Consts {
-	
+    public enum LogLevel {
+        INFO,
+        DEBUG,
+        WARNING,
+        ERROR
+    }
+    public static final String GROUP_NAMES = "Michal Shoob, Hila Glazz,\n Ariela Bak, Shalev Deutsch, Neta Shytrit";
+   // Define Direction enum
+    public enum Direction {
+        UP, DOWN, LEFT, RIGHT
+    } 
+	public static final LogLevel LOG_LEVEL = LogLevel.DEBUG;
     public static final String FILE_PATH = "high_scores.csv";
     public static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MM-dd-yy HH:mm");
 
@@ -15,10 +27,7 @@ public class Consts {
     public static final Color TETROMINO_COLOR_T = Color.MAGENTA;
     public static final Color TETROMINO_COLOR_Z = Color.RED;
 
-    // Define Direction enum
-    public enum Direction {
-        UP, DOWN, LEFT, RIGHT
-    }
+
     
     public static final int ROWS = 24;
     public static final int COLS = 12;
